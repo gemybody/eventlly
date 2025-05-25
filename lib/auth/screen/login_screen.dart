@@ -6,6 +6,7 @@ import 'package:eventlly/common/custom_main_button.dart';
 import 'package:eventlly/common/custom_main_outlined_button.dart';
 import 'package:eventlly/common/custom_text_Styles.dart';
 import 'package:eventlly/common/localizatoin_switch.dart';
+import 'package:eventlly/home/main_layer_Screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         maintainBottomViewPadding: true,
         child: ListView(
           padding: EdgeInsets.all(16),
-          
+
           children: [
             Image.asset(
               AppAssets.logoScreen,
@@ -54,7 +55,13 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            CustomMainButton(tittle: 'Login', onPressed: () {}),
+            CustomMainButton(
+              tittle: 'Login',
+              onPressed:
+                  () => Navigator.of(
+                    context,
+                  ).pushNamed(MainLayerScreen.routeName), //TODO:Edit
+            ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -63,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: " Don’t Have Account ? ",
-        
+
                         style: TextStyle(
                           color: const Color(0xFF1C1C1C),
                           fontSize: 16,
@@ -81,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                                   context,
                                 ).pushReplacementNamed(SignupScreen.routeName);
                               },
-        
+
                         style: CustomTextStyles.style16w700dark.copyWith(
                           decoration: TextDecoration.underline,
                           decorationColor: AppColors.mainColor,

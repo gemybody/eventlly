@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightThem = ThemeData(
-    dividerTheme:DividerThemeData(color: AppColors.mainColor) ,
+    dividerTheme: DividerThemeData(color: AppColors.mainColor),
     hoverColor: AppColors.greyColor,
+    highlightColor: AppColors.mainColor,
+    dividerColor: AppColors.lightTextColor,
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
 
@@ -35,9 +37,19 @@ class AppTheme {
 
       iconTheme: IconThemeData(color: AppColors.mainColor),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: AppColors.mainColor,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      unselectedItemColor: Colors.white,
+      selectedItemColor: Colors.white,
+    ),
   );
   static ThemeData darkThem = ThemeData(
     hoverColor: AppColors.mainColor,
+    dividerColor: AppColors.ofWhiteTextColor,
+    highlightColor: AppColors.secDarkColor,
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
     textTheme: TextTheme(
@@ -65,6 +77,14 @@ class AppTheme {
       ),
 
       iconTheme: IconThemeData(color: AppColors.mainColor),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: AppColors.secDarkColor,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      unselectedItemColor: Colors.white,
+      selectedItemColor: Colors.white,
     ),
   );
 }
