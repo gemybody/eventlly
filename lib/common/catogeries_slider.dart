@@ -1,38 +1,63 @@
+import 'package:eventlly/common/app_colors.dart';
 import 'package:eventlly/common/custom_text_styles.dart';
+import 'package:eventlly/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CatogeriesSlider extends StatelessWidget {
-  const CatogeriesSlider({super.key});
+  CatogeriesSlider({super.key, required this.categoryValue, required this.onSelect});
+  final CategoryValue categoryValue;
+  final void Function(CategoryValue) onSelect;
 
   @override
   Widget build(BuildContext context) {
+    
     return SizedBox(
-      height: 48,
+      height: 50,
       child: ListView.separated(
-        itemCount: 10,
+        itemCount: CategoryModel.categories.length,
 
         padding: EdgeInsets.all(4),
         scrollDirection: Axis.horizontal,
-        itemBuilder:
-            (context, index) => Container(
-              padding: EdgeInsets.all(10),
+        itemBuilder: (context, index) {
+          CategoryModel currentCatModel = CategoryModel.categories[index];
+          return GestureDetector(
+            onTap: () {
+              onSelect(currentCatModel.categoryValue);
+            },
+            child: Container(
+              padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
+                color:
+                    currentCatModel.categoryValue == categoryValue
+                        ? Theme.of(context).dividerColor
+                        : null,
                 borderRadius: BorderRadius.circular(46),
                 border: Border.all(color: Theme.of(context).dividerColor),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.abc, color: Theme.of(context).dividerColor),
+                  Icon(
+                    currentCatModel.iconData,
+                    color:
+                        currentCatModel.categoryValue == categoryValue
+                            ? AppColors.mainColor
+                            : Theme.of(context).dividerColor,
+                  ),
                   Text(
-                    'adf',
-                    style: CustomTextStyles.style16w700light.copyWith(
-                      color: Theme.of(context).dividerColor,
+                    currentCatModel.title,
+                    style: CustomTextStyles.style14w700light.copyWith(
+                      color:
+                          currentCatModel.categoryValue == categoryValue
+                              ? AppColors.mainColor
+                              : Theme.of(context).dividerColor,
                     ),
                   ),
                 ],
               ),
             ),
+          );
+        },
         separatorBuilder:
             (BuildContext context, int index) => SizedBox(width: 10),
       ),

@@ -1,11 +1,18 @@
 import 'package:eventlly/common/app_colors.dart';
 import 'package:eventlly/common/catogeries_slider.dart';
 import 'package:eventlly/common/custom_text_Styles.dart';
+import 'package:eventlly/models/category_model.dart';
 import 'package:flutter/material.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends StatefulWidget {
   const HomeHeader({super.key});
 
+  @override
+  State<HomeHeader> createState() => _HomeHeaderState();
+}
+
+class _HomeHeaderState extends State<HomeHeader> {
+  CategoryValue selectedId = CategoryModel.categories.first.categoryValue;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,7 +97,15 @@ class HomeHeader extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
-              child: CatogeriesSlider(),
+              child: CatogeriesSlider(
+                categoryValue: selectedId,
+                onSelect: (p0) {
+                  setState(() {
+                    selectedId = p0;
+                  });
+                  print('===>$selectedId');
+                },
+              ),
             ),
           ],
         ),
