@@ -7,5 +7,9 @@ class AppAssets {
     static const String emailIcon = 'assets/images_icon/email1_icon.svg';
      static const String personIcon = 'assets/images_icon/person1.svg';
      static const String GoogleIcon = 'assets/images_icon/googleicon.svg';
+     //category
+ static const String SportCategory = 'assets/categorydesignes/categorysport2.png';
+ static const String birthDayCategory = 'assets/categorydesignes/birthday.png';
+ static const String bookClubCategory = 'assets/categorydesignes/Book Club.png';
 
 }

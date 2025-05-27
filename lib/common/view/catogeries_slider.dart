@@ -1,16 +1,22 @@
 import 'package:eventlly/common/app_colors.dart';
-import 'package:eventlly/common/custom_text_styles.dart';
+import 'package:eventlly/common/widgets/custom_text_styles.dart';
 import 'package:eventlly/models/category_model.dart';
+import 'package:eventlly/provideres/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CatogeriesSlider extends StatelessWidget {
-  CatogeriesSlider({super.key, required this.categoryValue, required this.onSelect});
-  final CategoryValue categoryValue;
-  final void Function(CategoryValue) onSelect;
+  CatogeriesSlider({
+    super.key,
+    required this.categoryValue,
+    required this.onSelect,
+  });
+  final CategoryValues categoryValue;
+  final void Function(CategoryValues) onSelect;
 
   @override
   Widget build(BuildContext context) {
-    
+    Provider.of<ThemeProvider>(context);
     return SizedBox(
       height: 50,
       child: ListView.separated(
@@ -29,30 +35,45 @@ class CatogeriesSlider extends StatelessWidget {
               decoration: BoxDecoration(
                 color:
                     currentCatModel.categoryValue == categoryValue
-                        ? Theme.of(context).dividerColor
+                        ? Theme.of(context).colorScheme.brightness ==
+                                Brightness.dark
+                            ? AppColors.mainColor
+                            : Theme.of(context).dividerColor
                         : null,
+                border: Border.all(
+                  color:
+                      context.watch<ThemeProvider>().themeMode == ThemeMode.dark
+                          ? AppColors.mainColor
+                          : AppColors.lightTextColor,
+                ),
                 borderRadius: BorderRadius.circular(46),
-                border: Border.all(color: Theme.of(context).dividerColor),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
                 children: [
                   Icon(
                     currentCatModel.iconData,
                     color:
-                        currentCatModel.categoryValue == categoryValue
-                            ? AppColors.mainColor
-                            : Theme.of(context).dividerColor,
+                         currentCatModel.categoryValue == categoryValue
+                              ?Theme.of(context).colorScheme.brightness ==
+                                Brightness.dark
+                            ? AppColors.lightTextColor
+                            : AppColors.mainColor
+                              : Theme.of(context).dividerColor,
                   ),
                   Text(
                     currentCatModel.title,
                     style: CustomTextStyles.style14w700light.copyWith(
                       color:
                           currentCatModel.categoryValue == categoryValue
-                              ? AppColors.mainColor
+                              ?Theme.of(context).colorScheme.brightness ==
+                                Brightness.dark
+                            ? AppColors.lightTextColor
+                            : AppColors.mainColor
                               : Theme.of(context).dividerColor,
                     ),
-                  ),
+                  ), 
                 ],
               ),
             ),

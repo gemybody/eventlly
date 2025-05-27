@@ -1,8 +1,10 @@
 import 'package:eventlly/common/app_colors.dart';
-import 'package:eventlly/common/catogeries_slider.dart';
-import 'package:eventlly/common/custom_text_Styles.dart';
+import 'package:eventlly/common/view/catogeries_slider.dart';
+import 'package:eventlly/common/widgets/custom_text_styles.dart';
 import 'package:eventlly/models/category_model.dart';
+import 'package:eventlly/provideres/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeHeader extends StatefulWidget {
   const HomeHeader({super.key});
@@ -12,7 +14,7 @@ class HomeHeader extends StatefulWidget {
 }
 
 class _HomeHeaderState extends State<HomeHeader> {
-  CategoryValue selectedId = CategoryModel.categories.first.categoryValue;
+  CategoryValues selectedId = CategoryModel.categories.first.categoryValue;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,7 +67,9 @@ class _HomeHeaderState extends State<HomeHeader> {
                   height: 35,
                   child: IconButton(
                     padding: EdgeInsets.zero,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<ThemeProvider>().changeAppTheme();
+                    },
                     icon: Icon(
                       Icons.wb_sunny_outlined,
                       color: Theme.of(context).dividerColor,

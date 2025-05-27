@@ -1,5 +1,6 @@
 import 'package:eventlly/common/app_colors.dart';
-import 'package:eventlly/common/custom_text_Styles.dart';
+
+import 'package:eventlly/common/widgets/custom_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -9,7 +10,7 @@ class AppTheme {
     highlightColor: AppColors.mainColor,
     dividerColor: AppColors.lightTextColor,
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor,brightness: Brightness.light),
 
     scaffoldBackgroundColor: AppColors.secLightColor,
     textTheme: TextTheme(
@@ -51,7 +52,7 @@ class AppTheme {
     dividerColor: AppColors.ofWhiteTextColor,
     highlightColor: AppColors.secDarkColor,
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor,brightness: Brightness.dark),
     textTheme: TextTheme(
       bodySmall: CustomTextStyles.style14w400light,
       bodyMedium: CustomTextStyles.style16w400light,

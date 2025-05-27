@@ -1,11 +1,12 @@
 import 'package:eventlly/auth/screen/login_screen.dart';
-import 'package:eventlly/common/localizatoin_switch.dart';
+import 'package:eventlly/common/widgets/custom_text_styles.dart';
+import 'package:eventlly/common/widgets/localizatoin_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:eventlly/auth/widgets/auth_text_failed.dart';
 import 'package:eventlly/common/app_assets.dart';
 import 'package:eventlly/common/app_colors.dart';
-import 'package:eventlly/common/custom_main_button.dart';
-import 'package:eventlly/common/custom_text_Styles.dart';
+import 'package:eventlly/common/widgets/custom_main_button.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -55,12 +56,7 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Already Have Account ?',
-                        style: TextStyle(
-                          color: const Color(0xFF1C1C1C),
-                          fontSize: 16,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                        ),
+                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                       TextSpan(
                         text: 'Login',

@@ -1,14 +1,35 @@
+import 'package:eventlly/common/app_assets.dart';
 import 'package:flutter/material.dart';
 
-enum CategoryValue {
+enum CategoryValues {
   all,
   sport,
   birthday,
-  bookclub,
+  bookclub;
+
+  String toTitle() {
+    return name[0].toUpperCase() + name.substring(1);
+  }
+
+  String getDesgin() {
+    switch (this) {
+      case CategoryValues.all:
+        return '';
+
+      case CategoryValues.sport:
+        return AppAssets.SportCategory;
+
+      case CategoryValues.birthday:
+        return AppAssets.birthDayCategory;
+
+      case CategoryValues.bookclub:
+        return AppAssets.bookClubCategory;
+    }
+  }
 }
 
 class CategoryModel {
-  CategoryValue categoryValue;
+  CategoryValues categoryValue;
   String title;
   IconData iconData;
 
@@ -19,21 +40,25 @@ class CategoryModel {
   });
 
   static List<CategoryModel> get categories => [
-        CategoryModel(
-            categoryValue: CategoryValue.all,
-            title: CategoryValue.all.name,
-            iconData: Icons.explore_outlined),
-        CategoryModel(
-            categoryValue: CategoryValue.sport,
-            title: CategoryValue.sport.name,
-            iconData: Icons.directions_bike),
-        CategoryModel(
-            categoryValue: CategoryValue.birthday,
-            title: CategoryValue.birthday.name,
-            iconData: Icons.cake_outlined),
-        CategoryModel(
-            categoryValue: CategoryValue.bookclub,
-            title: CategoryValue.bookclub.name,
-            iconData: Icons.book_outlined),
-      ];
+    CategoryModel(
+      categoryValue: CategoryValues.all,
+      title: CategoryValues.all.toTitle(),
+      iconData: Icons.explore_outlined,
+    ),
+    CategoryModel(
+      categoryValue: CategoryValues.sport,
+      title: CategoryValues.sport.toTitle(),
+      iconData: Icons.directions_bike,
+    ),
+    CategoryModel(
+      categoryValue: CategoryValues.birthday,
+      title: CategoryValues.birthday.toTitle(),
+      iconData: Icons.cake_outlined,
+    ),
+    CategoryModel(
+      categoryValue: CategoryValues.bookclub,
+      title: CategoryValues.bookclub.toTitle(),
+      iconData: Icons.book_outlined,
+    ),
+  ];
 }

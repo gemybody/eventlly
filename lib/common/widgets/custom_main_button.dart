@@ -1,5 +1,4 @@
 import 'package:eventlly/common/app_colors.dart';
-import 'package:eventlly/common/custom_text_Styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomMainButton extends StatelessWidget {

@@ -1,3 +1,4 @@
+import 'package:eventlly/home/tabs/home_tab/views/events_list_view.dart';
 import 'package:eventlly/home/tabs/home_tab/views/home_header.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,6 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [ 
-      HomeHeader(),
-    ],);
+    return Column(children: [HomeHeader(), EventsListView()]);
   }
 }
