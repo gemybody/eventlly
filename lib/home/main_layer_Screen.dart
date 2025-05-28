@@ -1,3 +1,4 @@
+import 'package:eventlly/events/create_event_page.dart';
 import 'package:eventlly/home/tabs/home_tab/home_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,9 @@ class _MainLayerState extends State<MainLayerScreen> {
           border: Border.all(color: Colors.white, width: 5),
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(CreateEventPage.routeName);
+          },
           child: Icon(Icons.add, color: Colors.white, size: 30),
           shape: CircleBorder(),
           backgroundColor: Theme.of(context).highlightColor,

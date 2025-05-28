@@ -10,8 +10,10 @@ class CatogeriesSlider extends StatelessWidget {
     super.key,
     required this.categoryValue,
     required this.onSelect,
+    this.invertColors = false,
   });
   final CategoryValues categoryValue;
+  final bool invertColors;
   final void Function(CategoryValues) onSelect;
 
   @override
@@ -35,19 +37,28 @@ class CatogeriesSlider extends StatelessWidget {
               decoration: BoxDecoration(
                 color:
                     currentCatModel.categoryValue == categoryValue
-                        ? Theme.of(context).colorScheme.brightness ==
+                        ? (Theme.of(context).colorScheme.brightness ==
                                 Brightness.dark
                             ? AppColors.mainColor
-                            : Theme.of(context).dividerColor
+                            : Theme.of(context).dividerColor)
                         : null,
+
                 border: Border.all(
                   color:
-                      context.watch<ThemeProvider>().themeMode == ThemeMode.dark
-                          ? AppColors.mainColor
-                          : AppColors.lightTextColor,
+                      invertColors
+                          ? (context.watch<ThemeProvider>().themeMode ==
+                                  ThemeMode.light
+                              ? AppColors.mainColor
+                              : AppColors.lightTextColor)
+                          : (context.watch<ThemeProvider>().themeMode ==
+                                  ThemeMode.dark
+                              ? AppColors.lightTextColor
+                              : AppColors.mainColor),
                 ),
+
                 borderRadius: BorderRadius.circular(46),
               ),
+
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 spacing: 10,
@@ -55,25 +66,33 @@ class CatogeriesSlider extends StatelessWidget {
                   Icon(
                     currentCatModel.iconData,
                     color:
-                         currentCatModel.categoryValue == categoryValue
-                              ?Theme.of(context).colorScheme.brightness ==
-                                Brightness.dark
-                            ? AppColors.lightTextColor
-                            : AppColors.mainColor
-                              : Theme.of(context).dividerColor,
+                        currentCatModel.categoryValue == categoryValue
+                            ? Theme.of(context).colorScheme.brightness ==
+                                    Brightness.dark
+                                ? AppColors.lightTextColor
+                                : invertColors
+                                ? AppColors.lightTextColor
+                                : AppColors.mainColor
+                            : invertColors
+                            ? AppColors.mainColor
+                            : Theme.of(context).dividerColor,
                   ),
                   Text(
                     currentCatModel.title,
                     style: CustomTextStyles.style14w700light.copyWith(
                       color:
                           currentCatModel.categoryValue == categoryValue
-                              ?Theme.of(context).colorScheme.brightness ==
-                                Brightness.dark
-                            ? AppColors.lightTextColor
-                            : AppColors.mainColor
+                              ? Theme.of(context).colorScheme.brightness ==
+                                      Brightness.dark
+                                  ? AppColors.lightTextColor
+                                  : invertColors
+                                  ? AppColors.lightTextColor
+                                  : AppColors.mainColor
+                              : invertColors
+                              ? AppColors.mainColor
                               : Theme.of(context).dividerColor,
                     ),
-                  ), 
+                  ),
                 ],
               ),
             ),
@@ -85,42 +104,3 @@ class CatogeriesSlider extends StatelessWidget {
     );
   }
 }
-// ChoiceChip(
-//               selectedColor: Theme.of(context).dividerColor,
-//               showCheckmark: false,
-//               labelStyle: CustomTextStyles.style16w700light.copyWith(
-//                 color: Theme.of(context).hoverColor,
-//               ),
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(46),
-//               ),
-//               side: BorderSide(color: Theme.of(context).dividerColor, width: 2),
-
-//               backgroundColor: Colors.transparent,
-//               color: WidgetStatePropertyAll(
-//                 index == 0
-//                     ? Theme.of(context).dividerColor
-//                     : Theme.of(context).highlightColor,
-//               ),
-//               label: Row(
-//                 children: [
-//                   Icon(
-//                     Icons.cake_outlined,
-//                     color:
-//                         index == 0
-//                             ? Theme.of(context).highlightColor
-//                             : Theme.of(context).dividerColor,
-//                   ),
-//                   Text(
-//                     'xxxxxx',
-//                     style: CustomTextStyles.style16w700light.copyWith(
-//                        color:
-//                         index == 0
-//                             ? Theme.of(context).highlightColor
-//                             : Theme.of(context).dividerColor,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               selected: index == 0,
-//             ),

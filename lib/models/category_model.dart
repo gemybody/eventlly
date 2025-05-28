@@ -14,7 +14,7 @@ enum CategoryValues {
   String getDesgin() {
     switch (this) {
       case CategoryValues.all:
-        return '';
+        return AppAssets.allCategory;
 
       case CategoryValues.sport:
         return AppAssets.SportCategory;

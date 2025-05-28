@@ -72,6 +72,7 @@ class AppTheme {
       elevation: 0,
       centerTitle: true,
       titleTextStyle: TextStyle(
+        color: AppColors.mainColor,
         fontFamily: 'Rag',
         fontSize: 22,
         fontWeight: FontWeight.w500,

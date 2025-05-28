@@ -11,5 +11,6 @@ class AppAssets {
  static const String SportCategory = 'assets/categorydesignes/categorysport2.png';
  static const String birthDayCategory = 'assets/categorydesignes/birthday.png';
  static const String bookClubCategory = 'assets/categorydesignes/Book Club.png';
+  static const String allCategory = 'assets/categorydesignes/all.png';
 
 }
