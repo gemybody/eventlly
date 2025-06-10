@@ -2,13 +2,22 @@ import 'package:eventlly/auth/screen/login_screen.dart';
 import 'package:eventlly/auth/screen/signup_screen.dart';
 import 'package:eventlly/common/app_theme.dart';
 import 'package:eventlly/events/create_event_page.dart';
+import 'package:eventlly/firebase_options.dart';
 import 'package:eventlly/home/main_layer_Screen.dart';
 import 'package:eventlly/provideres/theme_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(create:(context) => ThemeProvider(),child: const MyApp()));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,28 +1,53 @@
 import 'package:eventlly/models/category_model.dart';
 
 class EventDataModel {
+  String id;
   String title;
-  String discripetion;
+  String descripetion;
   bool isFav;
   DateTime dateTime;
-  CategoryValues categoryValue;
+  CategoryValues categoryValues;
 
   EventDataModel({
     required this.title,
-    required this.discripetion,
-    required this.isFav,
+    required this.descripetion,
+    this.isFav =false,
     required this.dateTime,
-    required this.categoryValue,
+    required this.categoryValues,
+      this.id='',
   });
 
   static List<EventDataModel> get dummyData => List.generate(
     8,
     (index) => EventDataModel(
       title: 'title$index',
-      discripetion: 'xxxx' * index*2,
+      descripetion: 'xxxx' * index * 2,
       isFav: index % 2 == 0,
       dateTime: DateTime(2025, 5, index),
-      categoryValue: CategoryValues.bookclub,
+      categoryValues: CategoryValues.bookclub,
     ),
   );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id':id,
+      'title': title,
+      'descripetion': descripetion,
+      'isFav': isFav,
+      'dateTime': dateTime.microsecondsSinceEpoch,
+      'categoryValues': categoryValues.toJson(),
+    };
+  }
+
+  static EventDataModel fromJson(Map<String, dynamic> json) {
+    return EventDataModel(
+      title: json['title'],
+      descripetion: json['descripetion'],
+      isFav: json['isFav'],
+      id: json['id'],
+
+      dateTime: DateTime.fromMicrosecondsSinceEpoch(json['dateTime']),
+      categoryValues: CategoryValues.fromJson(json['categoryValues']),
+    );
+  }
 }

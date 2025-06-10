@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 class CatogeriesSlider extends StatelessWidget {
   CatogeriesSlider({
     super.key,
-    required this.categoryValue,
+    required this.categoryValues,
     required this.onSelect,
     this.invertColors = false,
   });
-  final CategoryValues categoryValue;
+  final CategoryValues? categoryValues;
   final bool invertColors;
   final void Function(CategoryValues) onSelect;
 
@@ -36,24 +36,22 @@ class CatogeriesSlider extends StatelessWidget {
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color:
-                    currentCatModel.categoryValue == categoryValue
+                    currentCatModel.categoryValue == categoryValues
                         ? (Theme.of(context).colorScheme.brightness ==
                                 Brightness.dark
+                            ? AppColors.mainColor
+                            : invertColors
                             ? AppColors.mainColor
                             : Theme.of(context).dividerColor)
                         : null,
 
                 border: Border.all(
                   color:
-                      invertColors
-                          ? (context.watch<ThemeProvider>().themeMode ==
-                                  ThemeMode.light
-                              ? AppColors.mainColor
-                              : AppColors.lightTextColor)
-                          : (context.watch<ThemeProvider>().themeMode ==
-                                  ThemeMode.dark
-                              ? AppColors.lightTextColor
-                              : AppColors.mainColor),
+                      context.watch<ThemeProvider>().themeMode == ThemeMode.dark
+                          ? AppColors.mainColor
+                          : invertColors
+                          ? AppColors.mainColor
+                          : AppColors.lightTextColor,
                 ),
 
                 borderRadius: BorderRadius.circular(46),
@@ -66,7 +64,7 @@ class CatogeriesSlider extends StatelessWidget {
                   Icon(
                     currentCatModel.iconData,
                     color:
-                        currentCatModel.categoryValue == categoryValue
+                        currentCatModel.categoryValue == categoryValues
                             ? Theme.of(context).colorScheme.brightness ==
                                     Brightness.dark
                                 ? AppColors.lightTextColor
@@ -81,7 +79,7 @@ class CatogeriesSlider extends StatelessWidget {
                     currentCatModel.title,
                     style: CustomTextStyles.style14w700light.copyWith(
                       color:
-                          currentCatModel.categoryValue == categoryValue
+                          currentCatModel.categoryValue == categoryValues
                               ? Theme.of(context).colorScheme.brightness ==
                                       Brightness.dark
                                   ? AppColors.lightTextColor

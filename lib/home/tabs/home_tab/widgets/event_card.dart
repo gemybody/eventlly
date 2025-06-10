@@ -18,7 +18,7 @@ class EventCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
-           eventDataModel.categoryValue.getDesgin(),
+              eventDataModel.categoryValues.getDesgin(),
               width: double.infinity,
               height: MediaQuery.of(context).size.height * .25,
               fit: BoxFit.cover,

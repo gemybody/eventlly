@@ -26,6 +26,22 @@ enum CategoryValues {
         return AppAssets.bookClubCategory;
     }
   }
+
+  static CategoryValues fromJson(String json) {
+    if (json == sport.name) {
+      return sport;
+    } else if (json == birthday.name) {
+      return birthday;
+    } else if (json == bookclub.name) {
+      return bookclub;
+    } else {
+      return all;
+    }
+  }
+
+  String toJson() {
+    return name;
+  }
 }
 
 class CategoryModel {

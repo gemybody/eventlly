@@ -1,6 +1,7 @@
 import 'package:eventlly/common/app_colors.dart';
 import 'package:eventlly/common/view/catogeries_slider.dart';
 import 'package:eventlly/common/widgets/custom_text_styles.dart';
+import 'package:eventlly/home/tabs/home_tab/provider/home_tab_provider.dart';
 import 'package:eventlly/models/category_model.dart';
 import 'package:eventlly/provideres/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,10 @@ class HomeHeader extends StatefulWidget {
 }
 
 class _HomeHeaderState extends State<HomeHeader> {
-  CategoryValues selectedId = CategoryModel.categories.first.categoryValue;
   @override
   Widget build(BuildContext context) {
+    CategoryValues? selectedId =
+        context.watch<HomeTabProvider>().selectedCategory;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
@@ -102,12 +104,9 @@ class _HomeHeaderState extends State<HomeHeader> {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: CatogeriesSlider(
-                categoryValue: selectedId,
+                categoryValues: selectedId,
                 onSelect: (p0) {
-                  setState(() {
-                    selectedId = p0;
-                  });
-                  print('===>$selectedId');
+                  context.read<HomeTabProvider>().editSelectedCategory(p0);
                 },
               ),
             ),
