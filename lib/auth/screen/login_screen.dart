@@ -2,6 +2,7 @@ import 'package:eventlly/auth/screen/signup_screen.dart';
 import 'package:eventlly/auth/widgets/auth_text_failed.dart';
 import 'package:eventlly/common/app_assets.dart';
 import 'package:eventlly/common/app_colors.dart';
+import 'package:eventlly/common/services/firebase_services.dart';
 import 'package:eventlly/common/widgets/custom_main_button.dart';
 import 'package:eventlly/common/widgets/custom_main_outlined_button.dart';
 import 'package:eventlly/common/widgets/custom_text_styles.dart';
@@ -11,10 +12,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const String routeName = '/loginScreen';
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool loading = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +39,12 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             AuthTextFailed(
+              controller: emailController,
               prefixIconPAth: AppAssets.emailIcon,
               hintText: 'Email', //TODO:localization
             ),
             AuthTextFailed(
+              controller: passwordController,
               password: true,
               prefixIconPAth: AppAssets.passwordIcon,
               hintText: 'password', //TODO:localization
@@ -55,13 +66,33 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            CustomMainButton(
-              tittle: 'Login',
-              onPressed:
-                  () => Navigator.of(
-                    context,
-                  ).pushNamed(MainLayerScreen.routeName), //TODO:Edit
-            ),
+            loading
+                ? Center(child: CircularProgressIndicator())
+                : CustomMainButton(
+                  tittle: 'Login',
+                  onPressed: () {
+                    setState(() {
+                      loading = true;
+                    });
+                    FirebaseServices.logInUser(
+                      email: emailController.text.trim(),
+                      password: passwordController.text,
+                    ).then((value) {
+                      setState(() {
+                        loading = false;
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "User LogidIn Successfuly${value?.name} ",
+                            style: CustomTextStyles.style18w500light,
+                          ),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    });
+                  },
+                ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),

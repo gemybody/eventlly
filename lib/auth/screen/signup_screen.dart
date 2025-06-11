@@ -1,4 +1,5 @@
 import 'package:eventlly/auth/screen/login_screen.dart';
+import 'package:eventlly/common/services/firebase_services.dart';
 import 'package:eventlly/common/widgets/custom_text_styles.dart';
 import 'package:eventlly/common/widgets/localizatoin_switch.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +11,25 @@ import 'package:eventlly/common/widgets/custom_main_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   static const String routeName = '/signInScreen';
 
   @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  bool loading = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: ListView(
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
           padding: EdgeInsets.all(16),
           children: [
             Image.asset(
@@ -28,14 +38,17 @@ class SignupScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             AuthTextFailed(
+              controller: nameController,
               prefixIconPAth: AppAssets.emailIcon,
               hintText: 'name', //TODO:localization
             ),
             AuthTextFailed(
+              controller: emailController,
               prefixIconPAth: AppAssets.emailIcon,
               hintText: 'Email', //TODO:localization
             ),
             AuthTextFailed(
+              controller: passwordController,
               password: true,
               prefixIconPAth: AppAssets.passwordIcon,
               hintText: 'password', //TODO:localization
@@ -46,7 +59,34 @@ class SignupScreen extends StatelessWidget {
               hintText: 'Re password', //TODO:localization
             ),
 
-            CustomMainButton(tittle: 'Create Account', onPressed: () {}),
+            loading
+                ? Center(child: CircularProgressIndicator())
+                : CustomMainButton(
+                  tittle: 'Create Account',
+                  onPressed: () {
+                    setState(() {
+                      loading = true;
+                    });
+                    FirebaseServices.registerUser(
+                      email: emailController.text.trim(),
+                      password: passwordController.text,
+                      name: nameController.text.trim(),
+                    ).then((value) {
+                      setState(() {
+                        loading = false;
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "User Registered Successfuly ",
+                            style: CustomTextStyles.style18w500light,
+                          ),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    });
+                  },
+                ),
 
             Center(
               child: Padding(
@@ -56,11 +96,11 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Already Have Account ?',
-                         style: Theme.of(context).textTheme.labelMedium,
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                       TextSpan(
                         text: 'Login',
-              
+
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
@@ -69,7 +109,7 @@ class SignupScreen extends StatelessWidget {
                                   context,
                                 ).pushReplacementNamed(LoginScreen.routeName);
                               },
-              
+
                         style: CustomTextStyles.style16w700dark.copyWith(
                           decoration: TextDecoration.underline,
                           decorationColor: AppColors.mainColor,

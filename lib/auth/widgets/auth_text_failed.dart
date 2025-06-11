@@ -8,10 +8,12 @@ class AuthTextFailed extends StatefulWidget {
     required this.prefixIconPAth,
     this.hintText,
     this.password,
+    this.controller
   });
   final String prefixIconPAth;
   final String? hintText;
   final bool? password;
+  final TextEditingController? controller;
 
   @override
   State<AuthTextFailed> createState() => _AuthTextFailedState();
@@ -24,6 +26,7 @@ class _AuthTextFailedState extends State<AuthTextFailed> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
+        controller: widget.controller,
         obscureText: isObscurs,
         decoration: InputDecoration(
           suffixIcon:

@@ -11,10 +11,10 @@ class EventDataModel {
   EventDataModel({
     required this.title,
     required this.descripetion,
-    this.isFav =false,
+    this.isFav = false,
     required this.dateTime,
     required this.categoryValues,
-      this.id='',
+    this.id = '',
   });
 
   static List<EventDataModel> get dummyData => List.generate(
@@ -30,7 +30,7 @@ class EventDataModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id':id,
+      'id': id,
       'title': title,
       'descripetion': descripetion,
       'isFav': isFav,
